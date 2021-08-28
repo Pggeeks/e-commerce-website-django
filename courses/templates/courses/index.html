@@ -1,0 +1,45 @@
+{% extends 'courses/base.html' %}
+{% load coursetag %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'courses/css/index.css' %}">
+{% endblock %}
+
+{% block body %}
+<h2 style="margin-left: 30px;"> Explore Courses</h2>
+<p id="welcome"> {% if request.user.is_authenticated %} Welcome Back, {% capname request.user %} {% endif %}</p>
+</head>
+<div class="container">
+  <div class="row">
+    {% for course in allcourse %}
+    <div class="card" style="width: 18rem; margin: 10px;">
+      <img src="{{course.cthumbnail.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{course.cname}}</h5>
+        <p class="card-text">{{course.cdesc}}</p> 
+          <span style="line-height: 30%;">
+            <p style="font-size: 12px;"> Save {{course.cdiscount}}%</p>
+            <p class="card-text"><del style="font-size: 15px;">{{ course.cprice|symbol }}</del>&nbsp;&nbsp; {% sellprice course.cprice course.cdiscount as val%} {{ val|symbol }}</p> 
+          </span>
+          <!-- button -->
+        </div> 
+        {% is_enrolled request course as Enroll %}
+        {% if Enroll is False %}
+        <div class="card-footer p-0" style="background-color: white; border: 0px;">
+              <div class="row no-gutters">
+          <div class="col border c "><a href="checkout/{{course.slug}}" class="btn">Enroll now</a></div>
+          <div class="col border c" style="display: block;"><a href="show/{{course.slug}}" class="btn">Watch Now</a></div>
+          </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if Enroll is True %}
+    <div class="card-footer p-0" style="background-color: white; border: 0px;">
+      <div class="row no-gutters">
+        <div class=" border d-flex justify-content-center align-items-center" style="display: block; width: 100%; padding: 0px;"><a href="show/{{course.slug}}" class="btn">start course</a></div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+{% endblock %}

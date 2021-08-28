@@ -1,0 +1,21 @@
+{% extends 'courses/base.html' %}
+{% block body %}
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        {% for mc in mycourses %}
+      <div class="card" style="width: 18rem; margin: 5px;">
+        <img src="{{mc.course.cthumbnail.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{mc.course.cname}}</h5>
+          <p class="card-text">{{mc.course.cdesc}}</p> 
+            <!-- button -->
+          </div> 
+        <div class="card-footer p-0" style="background-color: white; border: 0px;">
+            <div class="row no-gutters">
+                <div class=" border d-flex justify-content-center align-items-center" style="display: block; width: 100%; padding: 0px;"><a href="show/{{mc.course.slug}}" class="btn">start course</a></div>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+{% endblock %}

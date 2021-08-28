@@ -1,0 +1,8 @@
+#video_list{
+    overflow-y: scroll;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+.active-vid{
+    background-color:lightgreen;
+}
